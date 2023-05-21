@@ -4,7 +4,8 @@ For paper "Information Recovery-Driven Deep Incomplete Multi-view Clustering Net
 This code is implemented by python 3.9.13 and pytorch 1.13.0
 
 
-handwritten-5view dataset is provided for a demo! 
+"handwritten-5view" dataset is provided for a demo! 
+
 If you are interested in our new dataset [aloi_deep](https://drive.google.com/drive/folders/1SIu_QJWJ0Jhqsb1IJR7sMQMcPGDiDYhz?usp=share_link), you can download it into data/
 
 Run "python train.py".
