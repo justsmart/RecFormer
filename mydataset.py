@@ -34,7 +34,7 @@ def loadMvSlDataFromMat(mat_path):
         raise ValueError('no label index key!!!',data.keys())
     labels = labels.astype(np.float32)
     if labels.min() == -1:
-        labels = (label + 1) * 0.5
+        labels = (labels + 1) * 0.5
     if labels.shape[0] in mv_data[0].shape:
         total_sample_num = labels.shape[0]
     elif labels.shape[1] in mv_data[0].shape:
@@ -77,7 +77,7 @@ def loadIncMvSlDataFromMat(mat_path,fold_mat_path,fold_idx=0):
         raise ValueError('no label index key!!!',data.keys())
     labels = np.array(labels.astype(np.float32))
     if labels.min() == -1:
-        labels = (label + 1) * 0.5
+        labels = (labels + 1) * 0.5
     if labels.shape[0] in mv_data[0].shape:
         total_sample_num = labels.shape[0]
     elif labels.shape[1] in mv_data[0].shape:

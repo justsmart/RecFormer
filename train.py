@@ -202,12 +202,9 @@ def main(args,file_path):
         model = get_model(d_list,d_model=args.dim,n_layers=1,heads=4,classes_num=train_dataset.classes_num,dropout=0.)
 
         loss_model = myloss.MyLoss()
-        # loss_model = nn.MSELoss(reduce=True, size_average=True)
-        # crit = nn.BCELoss()
-        # optimizer = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+
         optimizer = Adam(model.parameters(), lr=args.lr)
-        # scheduler = StepLR(optimizer, step_size=5, gamma=0.85)
-        # scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=4, T_mult=2)
+
         scheduler = None
         estimator = KMeans(n_clusters=classes_num, max_iter=300, n_init=10, random_state=928)
         
@@ -227,34 +224,9 @@ def main(args,file_path):
                 continue
             else:
                 train_losses,model,evaluation_results,all_encX = train_2(train_dataloder,train_dataset,model,all_graph,all_encX,all_newX,loss_model,optimizer,scheduler,estimator,epoch,logger,fold_idx)
-                # all_graph = torch.tensor(getMvKNNGraph(all_newX,k=args.gamma),device = torch.device('cuda:0'),dtype = torch.float32)
-            for i,re in enumerate(epoch_results):
-                re.update([evaluation_results[key] for key in ['ACC','NMI','PUR','AMI','ARI']][i]) 
-            
-            static_res.update(evaluation_results['ACC']*1+evaluation_results['NMI']*0+evaluation_results['PUR']*0.)
 
-            train_losses_last = train_losses
-            total_losses.update(train_losses.sum)
-        best_epoch=static_res.max_ind
 
-        logger.info('final: fold_idx:{} best_epoch:{}\t best:acc:{:.4}\t nmi:{:.4}\t pur:{:.4}\t\n'.format(fold_idx,static_res.max_ind,epoch_results[0].vals[best_epoch],epoch_results[1].vals[best_epoch],
-            epoch_results[2].vals[best_epoch]))
 
-        for i in range(5):
-            folds_results[i].update(epoch_results[i].vals[best_epoch])
-        if args.save_curve:
-            np.save(osp.join(args.curve_dir,args.dataset+'_V_'+str(args.mask_view_ratio))+'_'+str(fold_idx)+'.npy', np.array(list(zip(static_res.vals,total_losses.vals))))
-    file_handle = open(file_path, mode='a')
-    if os.path.getsize(file_path) == 0:
-        file_handle.write(
-            'ACC NMI PUR AMI ARI lr beta gamma\n')
-    # generate string-result of 9 metrics and two parameters
-    res_list = [str(round(res.avg,4))+'+'+str(round(res.std,4)) for res in folds_results]
-    res_list.extend([str(args.lr),str(args.beta),str(args.gamma)])
-    res_str = ' '.join(res_list)
-    file_handle.write(res_str)
-    file_handle.write('\n')
-    file_handle.close()
         
 
 def filterparam(file_path,index):
@@ -283,7 +255,7 @@ if __name__ == '__main__':
                         default='data/')
     parser.add_argument('--dataset', type=str, default='handwritten-5view')#handwritten-5view NH_jerry Caltech101-7 animal
     parser.add_argument('--mask-view-ratio', type=float, default=0.5)
-    parser.add_argument('--folds-num', default=5, type=int) 
+    parser.add_argument('--folds-num', default=1, type=int) 
     parser.add_argument('--weights-dir', type=str, metavar='PATH', 
                         default=osp.join(working_dir, 'weights'))
     parser.add_argument('--curve-dir', type=str, metavar='PATH', 
@@ -318,20 +290,7 @@ if __name__ == '__main__':
     if args.logs:
         if not os.path.exists(args.logs_dir):
             os.makedirs(args.logs_dir)
-    if args.save_curve:
-        if not os.path.exists(args.curve_dir):
-            os.makedirs(args.curve_dir)
-    lr_list = [1e-3]
-    beta_list = [1]  #1e-3 for pascal07  1e-1 for others
-    gamma_list = [15]
-    existed_params = filterparam(file_path,[-2,-1])
-    for lr in lr_list:
-        args.lr = lr
-        for beta in beta_list:
-            args.beta = beta
-            for gamma in gamma_list:
-                args.gamma = gamma
-                if [args.beta,args.gamma] in existed_params:
-                    print('existed param! beta:{} gamma:{}'.format(args.beta,args.gamma))
-                    # continue
-                main(args,file_path)
+    args.lr = 1e-3
+    args.beta = 1
+    args.gamma = 15            
+    main(args,file_path)
