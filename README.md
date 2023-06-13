@@ -8,7 +8,7 @@ This code is implemented by python 3.9.13 and pytorch 1.13.0
 
 Run "python train.py".
 
-If you are interested in our proposed new dataset [aloi_deep](https://drive.google.com/drive/folders/1SIu_QJWJ0Jhqsb1IJR7sMQMcPGDiDYhz?usp=share_link), you can download it into 'data/'
+### If you are interested in our proposed new dataset [Aloi_deep](https://drive.google.com/drive/folders/1SIu_QJWJ0Jhqsb1IJR7sMQMcPGDiDYhz?usp=share_link), you can download it into 'data/'
 
 
 
