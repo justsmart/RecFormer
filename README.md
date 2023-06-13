@@ -1,5 +1,5 @@
 # RecFormer
-For paper "Information Recovery-Driven Deep Incomplete Multi-view Clustering Network".
+For paper "Information Recovery-Driven Deep Incomplete Multi-view Clustering Network", accepted by TNNLS.
 
 This code is implemented by python 3.9.13 and pytorch 1.13.0
 
