@@ -182,6 +182,7 @@ def getIncDataloader(matdata_path, fold_matdata_path, training_ratio=1, fold_idx
     dataloder = DataLoader(dataset=dataset,batch_size=batch_size,shuffle=shuffle,num_workers=num_workers)
     return dataloder,dataset
     
+## The following code is for function testing only and has nothing to do with the main code
 if __name__=='__main__':
     
     # dataloder,dataset = getComDataloader('/disk1/lcl/MATLAB-NOUPLOAD/cluster-data/data/3sources.mat',batch_size=128)
