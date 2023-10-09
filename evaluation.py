@@ -63,6 +63,7 @@ def clustering_metric(y_true, y_pred, decimals=4):
     pur = np.round(pur, decimals)
     return dict({'ACC':acc,'AMI': ami, 'NMI': nmi, 'ARI': ari, 'PUR':pur})
 
+## The following code is for function testing only and has nothing to do with the main code
 if __name__ == '__main__':
     # a=np.array([1,1,0,1,2,1,2])
     # b=np.array([1,0,1,2,1,2,1])
