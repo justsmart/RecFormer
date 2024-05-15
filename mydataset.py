@@ -38,7 +38,7 @@ def loadMvSlDataFromMat(mat_path):
     if labels.shape[0] in mv_data[0].shape:
         total_sample_num = labels.shape[0]
     elif labels.shape[1] in mv_data[0].shape:
-        total_sample_num = labels.shape[0]
+        total_sample_num = labels.shape[1]
     if total_sample_num!=mv_data[0].shape[0]:
         mv_data = [v_data.T for v_data in mv_data]
     if total_sample_num!=labels.shape[0]:
@@ -81,7 +81,7 @@ def loadIncMvSlDataFromMat(mat_path,fold_mat_path,fold_idx=0):
     if labels.shape[0] in mv_data[0].shape:
         total_sample_num = labels.shape[0]
     elif labels.shape[1] in mv_data[0].shape:
-        total_sample_num = labels.shape[0]
+        total_sample_num = labels.shape[1]
     if total_sample_num!=mv_data[0].shape[0]:
         mv_data = [v_data.T for v_data in mv_data]
     if total_sample_num!=labels.shape[0]:
@@ -181,7 +181,6 @@ def getIncDataloader(matdata_path, fold_matdata_path, training_ratio=1, fold_idx
     dataset = IncDataset(matdata_path, fold_matdata_path, training_ratio=training_ratio, fold_idx=fold_idx, is_train=is_train)
     dataloder = DataLoader(dataset=dataset,batch_size=batch_size,shuffle=shuffle,num_workers=num_workers)
     return dataloder,dataset
-    
 ## The following code is for function testing only and has nothing to do with the main code
 if __name__=='__main__':
     
