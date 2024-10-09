@@ -10,7 +10,7 @@ Run "python train.py".
 
 ### If you are interested in our proposed new dataset [Aloi_deep](https://drive.google.com/drive/folders/1SIu_QJWJ0Jhqsb1IJR7sMQMcPGDiDYhz?usp=share_link), you can download it into 'data/'
 
-
+You can use the function in construct_incomplete_index.py to construct the incomplete index matrix. And you can store the matrix in .mat file or other files, or you can construct the matrix in mydatasets.py (some simple modifications should be applied by youself) before training.
 
 
 # Citation
